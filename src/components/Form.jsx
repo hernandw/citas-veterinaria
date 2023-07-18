@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Error from "./Error";
+import getId from "../helpers/getId";
 
 const Form = ({ patients, setPatients, error, setError}) => {
   const [name, setName] = useState('')
@@ -7,6 +8,7 @@ const Form = ({ patients, setPatients, error, setError}) => {
   const [email, setEmail] = useState('')
   const [symptoms, setSymptoms] = useState("");
   const [date, setDate] = useState('')
+  const id = getId();
   
   const getForm = (e) => {
     e.preventDefault();
@@ -16,7 +18,7 @@ const Form = ({ patients, setPatients, error, setError}) => {
       
     } else {
       const objectPatient = {
-        id: patients.length + 1,
+        id,
         name,
         owner,
         email,
@@ -37,7 +39,7 @@ const Form = ({ patients, setPatients, error, setError}) => {
   }
   return (
     <div className="p-5 md:w-1/2 lg:w-2/5">
-      <h2 className="text-3xl text-center text-black">Seguimiento Pacientes</h2>
+      <h2 className="text-3xl font-bold text-center text-black">Seguimiento Pacientes</h2>
       <p className="mt-5 mb-5 text-lg text-center">
         Añade Pacientes y{" "}
         <span className="font-bold text-indigo-600">Administralos</span>
