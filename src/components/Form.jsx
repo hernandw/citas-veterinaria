@@ -1,45 +1,63 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Error from "./Error";
 import getId from "../helpers/getId";
 
-const Form = ({ patients, setPatients, error, setError}) => {
-  const [name, setName] = useState('')
-  const [owner, setOwner] = useState('')
-  const [email, setEmail] = useState('')
+const Form = ({ patients, setPatients, error, setError, patient }) => {
+  const [name, setName] = useState("");
+  const [owner, setOwner] = useState("");
+  const [email, setEmail] = useState("");
   const [symptoms, setSymptoms] = useState("");
-  const [date, setDate] = useState('')
+  const [date, setDate] = useState("");
+
+useEffect(() => {
+  if(Object.keys(patient).length >0) {
+    setName(patient.name);
+    setOwner(patient.owner);
+    setEmail(patient.email);
+    setSymptoms(patient.symptoms);
+    setDate(patient.date);
+  }
+}, [patient])  
   const id = getId();
-  
+
   const getForm = (e) => {
     e.preventDefault();
 
-    if([name, owner, email, symptoms, date].includes("")) {
-      setError(true)
-      
+    if ([name, owner, email, symptoms, date].includes("")) {
+      setError(true);
+      return
+    } 
+    setError(false);
+
+     const objectPatient = {
+       
+       name,
+       owner,
+       email,
+       symptoms,
+       date,
+     };
+    if (patient.id) {
+      objectPatient.id = patient.id;
+      const patientUpdate = patients.map((p) => p.id === patient.id ? objectPatient : p);
+      setPatients(patientUpdate);
     } else {
-      const objectPatient = {
-        id,
-        name,
-        owner,
-        email,
-        symptoms,
-        date,
-      };
-      setPatients([...patients, objectPatient]);
-      setError(false)
+      objectPatient.id = getId()
+       setPatients([...patients, objectPatient]);
+       
     }
-    
-    
-    setName('')
-    setOwner('')
-    setEmail('')
-    setSymptoms('')
-    setDate('')
-    
-  }
+
+    setName("");
+    setOwner("");
+    setEmail("");
+    setSymptoms("");
+    setDate("");
+  };
   return (
     <div className="p-5 md:w-1/2 lg:w-2/5">
-      <h2 className="text-3xl font-bold text-center text-black">Seguimiento Pacientes</h2>
+      <h2 className="text-3xl font-bold text-center text-black">
+        Seguimiento Pacientes
+      </h2>
       <p className="mt-5 mb-5 text-lg text-center">
         Añade Pacientes y{" "}
         <span className="font-bold text-indigo-600">Administralos</span>
@@ -127,7 +145,7 @@ const Form = ({ patients, setPatients, error, setError}) => {
 
         <input
           type="submit"
-          value="Agregar Paciente"
+          value={patient.id ? "Editar Paciente" : "Agregar Paciente"}
           className="w-full px-4 py-2 font-bold text-white bg-indigo-600 rounded cursor-pointer hover:bg-indigo-700"
           onClick={getForm}
         />

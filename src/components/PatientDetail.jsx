@@ -1,6 +1,6 @@
 
 
-const PatientDetail = ({ patient }) => {
+const PatientDetail = ({ patient, setPatient }) => {
     const { id, name, owner, email, symptoms, date } = patient;
   return (
     <div className="px-5 py-5 mb-5 bg-white rounded-lg shadow-md">
@@ -14,12 +14,19 @@ const PatientDetail = ({ patient }) => {
         Email: <span className="font-normal normal-case">{email}</span>
       </p>
       <p className="mb-3 font-bold text-gray-700 uppercase">
-        Fecha de Alta:{" "}
-        <span className="font-normal normal-case">{date} </span>
+        Fecha de Alta: <span className="font-normal normal-case">{date} </span>
       </p>
       <p className="mb-3 font-bold text-gray-700 uppercase">
         Sintomas: <span className="font-normal normal-case">{symptoms}</span>
       </p>
+      <div className="flex justify-between">
+        <button onClick={() => setPatient(patient)} className="text-white bg-indigo-700 hover:bg-indigo-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
+          Editar
+        </button>
+        <button className="text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
+          Eliminar
+        </button>
+      </div>
     </div>
   );
 }

@@ -9,12 +9,19 @@ import "./index.css"
 const App = () => {
   const [patients, setPatients] = useState([])
   const [error, setError] = useState(false)
+  const [patient, setPatient] = useState({})
   return (
     <div className="container mx-auto mt-20">
       <Header />
       <div className="mt-12 md:flex">
-        <Form patients={patients} setPatients={setPatients} error={error} setError={setError}/>
-        <PatientList patients={patients} />
+        <Form
+          patients={patients}
+          setPatients={setPatients}
+          error={error}
+          setError={setError}
+          patient={patient}
+        />
+        <PatientList patients={patients} setPatient={setPatient} patient={patient} />
       </div>
     </div>
   );
