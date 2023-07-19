@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import Error from "./Error";
 import getId from "../helpers/getId";
 
-const Form = ({ patients, setPatients, error, setError, patient }) => {
+const Form = ({ patients, setPatients, error, setError, patient, setPatient }) => {
   const [name, setName] = useState("");
   const [owner, setOwner] = useState("");
   const [email, setEmail] = useState("");
@@ -41,6 +41,7 @@ useEffect(() => {
       objectPatient.id = patient.id;
       const patientUpdate = patients.map((p) => p.id === patient.id ? objectPatient : p);
       setPatients(patientUpdate);
+      setPatient({});
     } else {
       objectPatient.id = getId()
        setPatients([...patients, objectPatient]);

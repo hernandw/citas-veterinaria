@@ -4,7 +4,7 @@ import PatientDetail from "./PatientDetail";
 
 
 
-const PatientList = ({ patients, setPatient, patient }) => {
+const PatientList = ({ patients, setPatient, patient, deletePatient }) => {
   
   return (
     <div className="p-5 md:w-1/2 lg:w-3/5">
@@ -20,7 +20,7 @@ const PatientList = ({ patients, setPatient, patient }) => {
               </span>
           </p>
           {patients.map((patient) => (
-            <PatientDetail key={patient.id} patient={patient} setPatient={setPatient} />
+            <PatientDetail key={patient.id} patient={patient} setPatient={setPatient} deletePatient={deletePatient} />
           ))}
           </>
       )
